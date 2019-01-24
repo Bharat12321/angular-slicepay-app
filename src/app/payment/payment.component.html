@@ -1,0 +1,144 @@
+<div id="accordion" class="col-md-6">
+
+  <div>
+      <h4> Make Payment </h4>
+  </div>
+  
+  <div class="card">
+    <div class="card-header">
+      <a class="card-link" data-toggle="collapse" href="#collapseOne">
+        Credit / Debit Card 
+      </a>
+    </div>
+    <div id="collapseOne" class="collapse show" data-parent="#accordion">
+      <div class="card-body">
+        <form [formGroup]="angForm" novalidate>
+
+          <input type="hidden" class="form-control" formControlName="productId" value="{{product_data[0]['id']}}" #productId />
+          <input type="hidden" class="form-control" formControlName="productPrice" value="{{product_data[0]['price']}}" #productPrice />
+
+          <div class="form-group">
+            <label class="col-md-4">Your Email</label>
+            <input type="email" class="form-control" formControlName="customer_email" ngModel email #customer_email />
+          </div>
+
+          <div *ngIf="angForm.controls['customer_email'].invalid && (angForm.controls['customer_email'].dirty || angForm.controls['customer_email'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['customer_email'].invalid">
+                Please enter a valid email.
+            </div>            
+            <div *ngIf="angForm.controls['customer_email'].errors.required">
+                Email is required.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-md-4">Name On Card</label>
+            <input type="text" class="form-control" formControlName="card_name" #card_name />
+          </div>
+          <div *ngIf="angForm.controls['card_name'].invalid && (angForm.controls['card_name'].dirty || angForm.controls['card_name'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['card_name'].errors.required">
+              Name is required.
+            </div>
+          </div>
+    
+          <div class="form-group">
+            <label class="col-md-4">Card Number </label>
+            <input type="text" class="form-control" formControlName="card_number" pattern="^4[0-9]{12}(?:[0-9]{3})?$" maxlength="16" #card_number />
+          </div>
+          
+          <div *ngIf="angForm.controls['card_number'].invalid && (angForm.controls['card_number'].dirty || angForm.controls['card_number'].touched)" >
+
+            <div class="alert alert-danger" *ngIf="angForm.controls['card_number'].invalid">
+                Please enter a valid card number.
+            </div>
+
+            <div class="alert alert-danger" *ngIf="angForm.controls['card_number'].errors.required">
+              Card Number is required.
+            </div>
+
+            <div class="alert alert-danger" *ngIf="angForm.controls['card_number'].hasError('invalidNumber')">
+              Numbers accepted only!.
+            </div>
+
+          </div>
+    
+          <div class="form-group">
+            <label class="col-md-4"> Card Expiry </label>
+            <input type="text" class="form-control" formControlName="card_expiry" placeholder="xx/xxxx" onkeyup="this.value=this.value.replace(/^(\d\d)$/g,'$1/$2').replace(/^(\d\d)(\d+)$/g,'$1/$2').replace(/[^\d\/]/g,'')" maxlength="7" #card_expiry />
+          </div>
+          
+          <div *ngIf="angForm.controls['card_expiry'].invalid && (angForm.controls['card_expiry'].dirty || angForm.controls['card_expiry'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['card_expiry'].errors.required">
+              Card Expiry is required.
+            </div>
+            <div *ngIf="angForm.controls['card_expiry'].hasError('invalidNumber')">
+              Numbers accepted only!.
+            </div>        
+          </div>
+    
+          <div class="form-group">
+            <label class="col-md-4"> Card Cvv </label>
+            <input type="text" class="form-control" formControlName="card_cvv" pattern="^[0-9]*" maxlength="4" #card_cvv />
+          </div>
+    
+          <div *ngIf="angForm.controls['card_cvv'].invalid && (angForm.controls['card_cvv'].dirty || angForm.controls['card_cvv'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['card_cvv'].errors.required">
+              Card Cvv is required.
+            </div>
+            <div *ngIf="angForm.controls['card_cvv'].hasError('invalidNumber')">
+              Numbers accepted only!.
+            </div>                
+          </div>      
+    
+          <div class="form-group">
+            <button (click)="addBooking(customer_email.value, productId.value, productPrice.value)"
+                [disabled]="angForm.pristine || angForm.invalid" 
+                class="btn btn-primary">
+                Make Payment
+             </button>
+          </div>
+        </form>        
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
+        Net Banking
+      </a>
+    </div>
+
+    <div id="collapseTwo" class="collapse" data-parent="#accordion">
+      <div class="card-body">
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <a class="collapsed card-link" data-toggle="collapse" href="#collapseThree">
+        UPI ID
+      </a>
+    </div>
+    <div id="collapseThree" class="collapse" data-parent="#accordion">
+      <div class="card-body">
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="col-md-6">
+
+  <div class="col-md-1">
+  </div>
+
+  <div class="col-md-5">
+    <img src="{{product_data[0]['image']}}" width="540px" height="400px" />
+    {{product_data[0]['name']}}
+  </div>
+
+
+
+</div>

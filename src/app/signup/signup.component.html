@@ -1,0 +1,157 @@
+<div id="accordion" class="col-md-6">
+    
+    <div class="card">
+      <div class="card-header">
+          <h4> Registration form </h4>        
+      </div>
+      <div class="card-body">
+          <form [formGroup]="angForm" novalidate>
+      
+              <div class="form-group">
+                <label class="col-md-4">Your Email</label>
+                <input type="email" class="form-control" formControlName="customer_email" ngModel email #customer_email />
+              </div>
+    
+              <div *ngIf="angForm.controls['customer_email'].invalid && (angForm.controls['customer_email'].dirty || angForm.controls['customer_email'].touched)" class="alert alert-danger">
+                <div *ngIf="angForm.controls['customer_email'].invalid">
+                    Please enter a valid email.
+                </div>            
+                <div *ngIf="angForm.controls['customer_email'].errors.required">
+                    Email is required.
+                </div>
+              </div>
+    
+              <div class="form-group">
+                <label class="col-md-4">User Name</label>
+                <input type="text" class="form-control" formControlName="customer_name" #customer_name />
+              </div>
+              <div *ngIf="angForm.controls['customer_name'].invalid && (angForm.controls['customer_name'].dirty || angForm.controls['customer_name'].touched)" class="alert alert-danger">
+                <div *ngIf="angForm.controls['customer_name'].errors.required">
+                  Name is required.
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-md-4">Password</label>
+                <input type="password" class="form-control" formControlName="password" minlength="6" maxlength="15" #password />
+              </div>
+              <div *ngIf="angForm.controls['password'].invalid && (angForm.controls['password'].dirty || angForm.controls['password'].touched)" class="alert alert-danger">
+                <div *ngIf="angForm.controls['password'].errors.required">
+                  Password is required.
+                </div>
+              </div>              
+        
+              <div class="form-group">
+                <label class="col-md-4"> Phone Number </label>
+                <input type="text" class="form-control" formControlName="phone_number" maxlength="15" #phone_number />
+              </div>
+              
+              <div *ngIf="angForm.controls['phone_number'].invalid && (angForm.controls['phone_number'].dirty || angForm.controls['phone_number'].touched)" >
+    
+                <div class="alert alert-danger" *ngIf="angForm.controls['phone_number'].invalid">
+                    Please enter a valid phone number.
+                </div>
+    
+                <div class="alert alert-danger" *ngIf="angForm.controls['phone_number'].errors.required">
+                  Phone Number is required.
+                </div>
+    
+                <div class="alert alert-danger" *ngIf="angForm.controls['phone_number'].hasError('invalidNumber')">
+                  Numbers accepted only!.
+                </div>
+    
+              </div>
+        
+              <div class="form-group">
+                <label class="col-md-4">Address 1</label>
+                <input type="text" class="form-control" formControlName="address_1" #address_1 />
+              </div>
+              <div *ngIf="angForm.controls['address_1'].invalid && (angForm.controls['address_1'].dirty || angForm.controls['address_1'].touched)" class="alert alert-danger">
+                <div *ngIf="angForm.controls['address_1'].errors.required">
+                  Addreee line 1 is required.
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label class="col-md-4">Address 2</label>
+                <input type="text" class="form-control" formControlName="address_2" #address_2 />
+              </div>
+              <div *ngIf="angForm.controls['address_2'].invalid && (angForm.controls['address_2'].dirty || angForm.controls['address_2'].touched)" class="alert alert-danger">
+                <div *ngIf="angForm.controls['address_2'].errors.required">
+                  Addreee line 2 is required.
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-md-4"> ZipCode </label>
+                <input type="text" class="form-control" formControlName="zip_code" pattern="^[0-9]*" maxlength="6" #zip_code />
+              </div>
+        
+              <div *ngIf="angForm.controls['zip_code'].invalid && (angForm.controls['zip_code'].dirty || angForm.controls['zip_code'].touched)" class="alert alert-danger">
+                <div *ngIf="angForm.controls['zip_code'].errors.required">
+                  Zip code is required.
+                </div>
+                <div *ngIf="angForm.controls['zip_code'].hasError('invalidNumber')">
+                  Numbers accepted only!.
+                </div>                
+              </div>    
+
+              <div class="form-group">
+                <button (click)="addRegistration( customer_email.value, customer_name.value, password.value, address_1.value, address_2.value, zip_code.value, phone_number.value )"
+                    [disabled]="angForm.pristine || angForm.invalid" 
+                    class="btn btn-primary">
+                    Signup
+                 </button>
+              </div>
+            </form>       
+      </div>
+    </div>
+
+</div>    
+
+<div id="accordion" class="col-md-6">
+    
+    <div class="card">
+      <div class="card-header">
+          <h4> Login </h4>        
+      </div>
+      <div class="card-body">
+          <form [formGroup]="angFormLogin" novalidate>
+      
+              <div class="form-group">
+                <label class="col-md-4">Your Email</label>
+                <input type="email" class="form-control" formControlName="customer_email_chk" ngModel email #customer_email_chk />
+              </div>
+    
+              <div *ngIf="angFormLogin.controls['customer_email_chk'].invalid && (angFormLogin.controls['customer_email_chk'].dirty || angFormLogin.controls['customer_email_chk'].touched)" class="alert alert-danger">
+                <div *ngIf="angFormLogin.controls['customer_email_chk'].invalid">
+                    Please enter a valid email.
+                </div>            
+                <div *ngIf="angFormLogin.controls['customer_email_chk'].errors.required">
+                    Email is required.
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-md-4">Password</label>
+                <input type="password" class="form-control" formControlName="password_chk" minlength="6" maxlength="15" #password_chk />
+              </div>
+              <div *ngIf="angFormLogin.controls['password_chk'].invalid && (angFormLogin.controls['password_chk'].dirty || angFormLogin.controls['password_chk'].touched)" class="alert alert-danger">
+                <div *ngIf="angFormLogin.controls['password_chk'].errors.required">
+                  Password is required.
+                </div>
+              </div>              
+        
+
+              <div class="form-group">
+                <button (click)="getLogin(customer_email_chk.value, password_chk.value)"
+                    [disabled]="angFormLogin.pristine || angFormLogin.invalid" 
+                    class="btn btn-primary">
+                    Login
+                 </button>
+              </div>
+            </form>       
+      </div>
+    </div>
+
+</div>    
